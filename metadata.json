@@ -1,0 +1,6 @@
+{
+  "name": "The Sun Technologies Header",
+  "description": "A highly polished, responsive header for The Sun Technologies website with interactive menus, mobile viewport adaptation, and beautiful hover states.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
