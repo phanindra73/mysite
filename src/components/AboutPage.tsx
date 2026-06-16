@@ -20,6 +20,7 @@ import {
   Github
 } from 'lucide-react';
 import classroomSeminar from '../assets/images/classroom_collaboration_1781101189089.png';
+import phaneendraImage from '../assets/images/phaneendra.jpg';
 import { NavItem } from '../types';
 
 interface AboutPageProps {
@@ -75,34 +76,6 @@ export default function AboutPage({ onGetStartedClick, onNavigate }: AboutPagePr
     {
       title: 'Systemized Innovation',
       desc: 'Inspiring students to see themselves not as consumers of APIs, but as active creators of autonomous, intelligent tools.'
-    }
-  ];
-
-  // Team data for Section 8: Meet the Team
-  const teamMembers = [
-    {
-      initial: 'P',
-      name: 'Dr. Phani O.',
-      role: 'Director of Academic Innovation',
-      bio: 'Ex-Architect, Oracle. Over 15+ years in database architectures and university tech curriculum innovation.'
-    },
-    {
-      initial: 'N',
-      name: 'Nishita K.',
-      role: 'Head of Global Partnerships',
-      bio: 'Ex-Hiring Lead, Cognizant. Directs interface channels with over 120+ MNC service-partners globally.'
-    },
-    {
-      initial: 'S',
-      name: 'Shrikant P.',
-      role: 'Technical Director & Lead Trainer',
-      bio: 'Spring Boot & Microservices Lead Trainer. Over 8+ years guiding enterprise-level production systems.'
-    },
-    {
-      initial: 'A',
-      name: 'Ananya R.',
-      role: 'SDET Advisory Panel',
-      bio: 'QA Automation Head. Specializes in building robust corporate pipelines running Selenium/Playwright.'
     }
   ];
 
@@ -223,44 +196,48 @@ export default function AboutPage({ onGetStartedClick, onNavigate }: AboutPagePr
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center text-left">
-            <div className="lg:col-span-6 space-y-4 lg:order-2 text-justify">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Column: Image wrapper */}
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="relative group w-64 sm:w-72 lg:w-80 shrink-0">
+                {/* Decorative background brand color accent */}
+                <div className="absolute -inset-2 bg-gradient-to-tr from-[#e41e3d]/10 to-transparent rounded-3xl blur-md opacity-75 group-hover:opacity-100 transition duration-500" />
+                
+                <div className="relative rounded-2xl p-2 bg-white border border-slate-150 shadow-md">
+                  <div className="relative overflow-hidden rounded-xl bg-slate-50 aspect-[4/5]">
+                    <img 
+                      src={phaneendraImage} 
+                      alt="Phaneendra Oruganti, Founder" 
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent opacity-95" />
+                    
+                    <div className="absolute bottom-0 inset-x-0 p-4 text-white text-left">
+                      <p className="text-[10px] font-bold tracking-wider uppercase text-[#e41e3d] mb-1">Founder & Academic Visionary</p>
+                      <p className="text-xs font-semibold leading-tight text-white/90">Phaneendra Oruganti</p>
+                      <p className="text-[10px] text-zinc-300 font-medium mt-0.5">Directing tech excellence since 2001</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            {/* Right Column: Founder Story Text */}
+            <div className="lg:col-span-7 space-y-4 text-justify">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-950 tracking-tight text-left">Founder Story</h2>
               <p className="text-sm sm:text-base text-gray-650 leading-relaxed">
-                The Sun Technologies was founded on a simple yet profound realization by academic innovators: true teaching is not just printing manuals or loading textbook modules. It is about a relentless focus on individual student outcomes.
+                The Sun Technologies was founded on a simple yet profound realization by our founder, Phaneendra Oruganti: true teaching is not just printing software manuals or loading stale textbook modules. It is about a relentless focus on individual student outcomes.
               </p>
               <p className="text-sm sm:text-base text-gray-650 leading-relaxed">
-                Our founders recognized early on that aspiring developers from diverse demographic backgrounds had the intellectual capabilities to build globally relevant tools but were held back by high commercial tuition fees and theoretical, stale curricula. By keeping our overhead lean and structuring our classes around deep-dive hands-on labs, our leaders pioneered an accessible, premier training paradigm. 
+                With over 25 years of experience in Software Training and enterprise systems, Phaneendra Oruganti recognized early on that aspiring developers from diverse demographic backgrounds had the intellectual capabilities to build globally relevant tools but were held back by high commercial tuition fees and theoretical, stale curricula. By keeping our overhead lean and structuring our classes around deep-dive hands-on labs, Phaneendra pioneered an accessible, premier training paradigm. 
               </p>
               <div className="bg-slate-100/70 border-l-4 border-[#e41e3d] p-4 rounded-r-lg">
                 <p className="text-xs sm:text-sm text-gray-750 font-medium italic leading-relaxed">
                   "Our ultimate responsibility is to ensure that every student who sits in our lecture halls gains genuine coding independence, enabling self-sustaining professional trajectories anywhere in the world."
                 </p>
                 <div className="mt-2 flex items-center justify-between">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-800">— Founders Council, The Sun Technologies</span>
-                </div>
-              </div>
-            </div>
-            <div className="lg:col-span-6 lg:order-1">
-              <div className="relative rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 border border-slate-300 p-8 flex flex-col justify-center min-h-[300px]">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-white p-5 rounded-xl border border-slate-150 shadow-xs text-center space-y-2">
-                    <span className="text-3xl font-extrabold text-[#e41e3d] font-mono">25+</span>
-                    <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Years of Teaching Delivery</p>
-                  </div>
-                  <div className="bg-white p-5 rounded-xl border border-slate-150 shadow-xs text-center space-y-2">
-                    <span className="text-3xl font-extrabold text-slate-800 font-mono">10k+</span>
-                    <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Students Trained</p>
-                  </div>
-                  <div className="bg-white p-5 rounded-xl border border-slate-150 shadow-xs text-center space-y-2">
-                    <span className="text-3xl font-extrabold text-slate-800 font-mono">120+</span>
-                    <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">MNC Hiring Partners</p>
-                  </div>
-                  <div className="bg-white p-5 rounded-xl border border-slate-150 shadow-xs text-center space-y-2">
-                    <span className="text-3xl font-extrabold text-green-600 font-mono">100%</span>
-                    <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Practical-First Focus</p>
-                  </div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-800">— Phaneendra Oruganti, Founder</span>
                 </div>
               </div>
             </div>
@@ -439,42 +416,6 @@ export default function AboutPage({ onGetStartedClick, onNavigate }: AboutPagePr
           </div>
         </motion.section>
 
-        {/* SECTION 8: Meet the Team */}
-        <motion.section 
-          id="meet-the-team" 
-          className="scroll-mt-32"
-          initial={{ opacity: 0, x: 80 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-        >
-          <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
-
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-950 tracking-tight">Meet the Team</h2>
-            <p className="text-sm sm:text-base text-gray-650">
-              Our core engineering leadership and corporate advisors mapping daily academy innovation.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-            {teamMembers.map((member, index) => (
-              <div key={index} className="bg-white rounded-xl overflow-hidden border border-gray-150 p-6 space-y-4 shadow-xs text-center flex flex-col justify-between">
-                <div className="space-y-4">
-                  <div className="w-16 h-16 bg-slate-100 text-[#e41e3d] font-extrabold text-xl rounded-full flex items-center justify-center mx-auto border-2 border-slate-200">
-                    {member.initial}
-                  </div>
-                  <div>
-                    <h3 className="text-sm sm:text-base font-bold text-gray-900">{member.name}</h3>
-                    <p className="text-[11px] text-[#e41e3d] font-semibold uppercase tracking-wider">{member.role}</p>
-                  </div>
-                  <p className="text-xs text-gray-600 leading-relaxed">
-                    {member.bio}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.section>
 
       </div>
 
