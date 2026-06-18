@@ -7,6 +7,7 @@ import {
   Linkedin, Github, Facebook
 } from 'lucide-react';
 import { ACADEMY_CATEGORIES, AcademyCourse, AcademyCategory } from '../data/academyData';
+import { generateCProgrammingPDF } from '../utils/generateCProgrammingPDF';
 
 interface AcademyPageProps {
   onGetStartedClick: (courseName: string) => void;
@@ -123,13 +124,20 @@ export default function AcademyPage({ onGetStartedClick, onNavigate }: AcademyPa
     }).format(val);
   };
 
-  // Mock-download Syllabus file for excellent user interactivity
+  // Download Syllabus file (Real branded PDF for C Programming, interactive text representation for other courses)
   const handleDownloadSyllabus = (course: AcademyCourse, categoryName: string) => {
     setDownloadingCourse(course.title);
     
     // Simulate generation delay
     setTimeout(() => {
-      const text = `===========================================================
+      if (course.title === 'C Programming') {
+        try {
+          generateCProgrammingPDF();
+        } catch (error) {
+          console.error('Failed to generate C Programming PDF:', error);
+        }
+      } else {
+        const text = `===========================================================
                THE SUN TECHNOLOGIES ACADEMY
               OFFICIAL TRAINING COURSE SYLLABUS
 ===========================================================
@@ -172,13 +180,14 @@ Need immediate guidance? Mail us at: phaniovv@gmail.com
 Thank you for trusting Sun Technologies.
 ===========================================================`;
 
-      const element = document.createElement("a");
-      const file = new Blob([text], { type: 'text/plain' });
-      element.href = URL.createObjectURL(file);
-      element.download = `SunAcademy_Syllabus_${course.title.replace(/[^a-zA-Z0-9]/g, '_')}.txt`;
-      document.body.appendChild(element);
-      element.click();
-      document.body.removeChild(element);
+        const element = document.createElement("a");
+        const file = new Blob([text], { type: 'text/plain' });
+        element.href = URL.createObjectURL(file);
+        element.download = `SunAcademy_Syllabus_${course.title.replace(/[^a-zA-Z0-9]/g, '_')}.txt`;
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      }
 
       setDownloadingCourse(null);
       setDownloadSuccess(course.title);
