@@ -687,7 +687,13 @@ export default function HeroSection({ onGetStartedClick, onNavigate }: HeroSecti
             {/* Learn More Button */}
             <div className="mt-6 text-center flex justify-center">
               <button
-                onClick={() => onGetStartedClick('Products Under Development')}
+                onClick={() => {
+                  if (onNavigate) {
+                    onNavigate('Products');
+                  } else {
+                    onGetStartedClick('Products Under Development');
+                  }
+                }}
                 className="inline-flex items-center gap-2 bg-[#e41e3d] hover:bg-red-700 text-white font-bold text-sm px-8 py-3.5 rounded-lg transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 cursor-pointer group"
               >
                 <span>Learn More</span>
