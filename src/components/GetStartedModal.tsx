@@ -156,7 +156,11 @@ export default function GetStartedModal({ isOpen, onClose, initialProgram }: Get
   const activeCoursePrice = resolveActiveCoursePrice(formData.program);
   const basePriceINR = activeCoursePrice.inr;
   const bookingFeeINR = 5000; // Standard nominal block fee
+<<<<<<< HEAD
   const discountRateValue = paymentOption === 'full' ? 0.10 : 0; // 10% cash discount
+=======
+  const discountRateValue = 0; // 0% cash discount
+>>>>>>> 0cb0a05 (razorpay commit)
   const discountAmount = Math.round(basePriceINR * discountRateValue);
   const beforeTaxPrice = paymentOption === 'full' ? (basePriceINR - discountAmount) : bookingFeeINR;
   
@@ -175,6 +179,7 @@ export default function GetStartedModal({ isOpen, onClose, initialProgram }: Get
   };
 
   // Secure Checkout execution
+<<<<<<< HEAD
   const handleCheckoutSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setModalStep('processing');
@@ -222,6 +227,113 @@ export default function GetStartedModal({ isOpen, onClose, initialProgram }: Get
         setModalStep('receipt');
       }
     }, 800);
+=======
+  const handleCheckoutSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setModalStep('processing');
+    setProcessingProgress(25);
+    setProcessingLog('Creating secure Razorpay order payload...');
+
+    try {
+      // 1. Create order from backend
+      const res = await fetch('/api/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: totalAmount,
+          currency: 'INR',
+          receipt: `receipt_${Date.now()}`
+        })
+      });
+
+      if (!res.ok) throw new Error('Network response was not ok');
+      const order = await res.json();
+      
+      setProcessingProgress(50);
+      setProcessingLog('Opening secure Razorpay modal overlay & authorizing bank gateway connection...');
+
+      // 2. Initialize Razorpay options
+      const options = {
+        key: "rzp_live_T3o7Ich5sBMybC", // Public Key
+        amount: order.amount,
+        currency: order.currency,
+        name: "The Sun Technologies",
+        description: `Enrollment: ${formData.program}`,
+        order_id: order.id,
+        handler: async function (response: any) {
+          setProcessingProgress(75);
+          setProcessingLog('Verifying Razorpay digital signatures...');
+          
+          try {
+            // 3. Verify Payment
+            const verifyRes = await fetch('/api/verify-payment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(response)
+            });
+
+            const verifyData = await verifyRes.json();
+            
+            if (verifyData.success) {
+              setProcessingProgress(100);
+              setProcessingLog('Success! Enrolling cadet seat info & creating digital admission logs...');
+              
+              // 4. Generate receipt details based on real Razorpay transaction
+              const randReceipt = 'SUN-REC-' + Math.floor(100000 + Math.random() * 90000);
+              const currentDate = new Date().toLocaleDateString('en-IN', {
+                day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+              });
+
+              setReceiptDetails({
+                receiptId: randReceipt,
+                txnId: response.razorpay_payment_id,
+                date: currentDate,
+                originalPrice: basePriceINR,
+                discountRate: discountRateValue * 100,
+                discountValue: discountAmount,
+                gstAmount: gstPart,
+                paidAmount: getFormattedPrice(totalAmount),
+                formattedPriceINR: getFormattedPrice(basePriceINR)
+              });
+
+              setModalStep('receipt');
+            } else {
+              alert('Payment Verification Failed');
+              setModalStep('payment');
+            }
+          } catch (err) {
+            console.error(err);
+            alert('Verification Error');
+            setModalStep('payment');
+          }
+        },
+        prefill: {
+          name: formData.name,
+          email: formData.email,
+          contact: formData.phone
+        },
+        theme: {
+          color: "#e41e3d"
+        }
+      };
+
+      // @ts-ignore
+      const rzp = new window.Razorpay(options);
+      
+      rzp.on('payment.failed', function (response: any){
+        console.error(response.error);
+        alert(response.error.description);
+        setModalStep('payment');
+      });
+
+      rzp.open();
+
+    } catch (error) {
+      console.error(error);
+      alert('Order creation failed. Is the backend server running?');
+      setModalStep('payment');
+    }
+>>>>>>> 0cb0a05 (razorpay commit)
   };
 
   // Download simulation
@@ -569,10 +681,13 @@ Thank you for trusting Sun Technologies.
                               >
                                 <div className="flex items-center justify-between">
                                   <span className="font-extrabold text-slate-800">Complete Course Fee</span>
+<<<<<<< HEAD
                                   <div className="flex items-center gap-1 text-[10px] bg-green-500 text-white font-extrabold px-1.5 py-0.5 rounded">
                                     <Percent size={10} />
                                     <span>10% OFF</span>
                                   </div>
+=======
+>>>>>>> 0cb0a05 (razorpay commit)
                                 </div>
                                 <p className="text-[10px] text-slate-400 mt-0.5 font-medium">Clear full program amount securely.</p>
                               </button>
@@ -602,6 +717,7 @@ Thank you for trusting Sun Technologies.
                               <span className="text-slate-700">{getFormattedPrice(basePriceINR)}</span>
                             </div>
 
+<<<<<<< HEAD
                             {paymentOption === 'full' ? (
                               <div className="flex justify-between text-xs font-medium text-green-600">
                                 <span className="flex items-center gap-1">
@@ -611,6 +727,9 @@ Thank you for trusting Sun Technologies.
                                 <span>-{getFormattedPrice(discountAmount)}</span>
                               </div>
                             ) : (
+=======
+                            {paymentOption === 'deposit' && (
+>>>>>>> 0cb0a05 (razorpay commit)
                               <div className="flex justify-between text-xs font-medium text-amber-600">
                                 <span>Seat Advance Amount</span>
                                 <span>{getFormattedPrice(bookingFeeINR)}</span>
@@ -642,6 +761,7 @@ Thank you for trusting Sun Technologies.
                       </div>
 
                       {/* Right Block: Interactive payment inputs */}
+<<<<<<< HEAD
                       <div className="md:col-span-7 space-y-4">
                         <div>
                           <div className="flex items-center justify-between mb-1.5">
@@ -842,6 +962,14 @@ Thank you for trusting Sun Technologies.
                           <Lock size={14} className="text-blue-500 mt-0.5 flex-shrink-0" />
                           <p className="text-[10px] text-slate-500 leading-normal">
                             All inputs are protected in transmission. Safe Seat reservation cancellation operates 100% full-refund scheme within 3 days.
+=======
+                      <div className="md:col-span-7 space-y-4 flex flex-col justify-center">
+                        <div className="bg-slate-50/50 p-6 rounded-xl border border-slate-100 text-center flex flex-col items-center justify-center h-full">
+                          <ShieldCheck size={48} className="text-[#0B69FF] mb-4 opacity-80" />
+                          <h4 className="text-sm font-bold text-slate-800 mb-2">Ready for Secure Checkout</h4>
+                          <p className="text-xs text-slate-500 max-w-[250px] leading-relaxed">
+                            Click <strong>Continue to Payment</strong> below. A secure Razorpay window will open where you can select your preferred payment method (UPI, Cards, Netbanking).
+>>>>>>> 0cb0a05 (razorpay commit)
                           </p>
                         </div>
                       </div>

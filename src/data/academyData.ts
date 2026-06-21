@@ -6,6 +6,10 @@ export interface AcademyCourse {
   rating: number;
   skills: string[];
   level: 'Beginner' | 'Intermediate' | 'Advanced' | 'All Levels';
+<<<<<<< HEAD
+=======
+  syllabusPdf?: string;
+>>>>>>> 0cb0a05 (razorpay commit)
 }
 
 export interface AcademyCategory {
@@ -28,7 +32,12 @@ export const ACADEMY_CATEGORIES: AcademyCategory[] = [
         description: "Master procedural programming paradigm, pointer manipulation, and memory management basics.",
         rating: 4.7,
         skills: ["Pointers", "Data Types", "Functions", "Memory Allocations"],
+<<<<<<< HEAD
         level: "Beginner"
+=======
+        level: "Beginner",
+        syllabusPdf: "/C_Programming.pdf"
+>>>>>>> 0cb0a05 (razorpay commit)
       },
       {
         title: "C++ Programming",
@@ -37,7 +46,12 @@ export const ACADEMY_CATEGORIES: AcademyCategory[] = [
         description: "Explore Object-Oriented Programming (OOP) concepts, templates, STL containers, and low-level system design.",
         rating: 4.8,
         skills: ["OOPS", "STL Library", "Templates", "Polymorphism"],
+<<<<<<< HEAD
         level: "Beginner"
+=======
+        level: "Beginner",
+        syllabusPdf: "/CPP_Programming.pdf"
+>>>>>>> 0cb0a05 (razorpay commit)
       },
       {
         title: "Core Java",
@@ -46,7 +60,12 @@ export const ACADEMY_CATEGORIES: AcademyCategory[] = [
         description: "Master Java fundamentals, exception handling, multi-threading, collections, and generic programming.",
         rating: 4.9,
         skills: ["Java JVM", "Collections Framework", "Multi-threading", "File IO"],
+<<<<<<< HEAD
         level: "Beginner"
+=======
+        level: "Beginner",
+        syllabusPdf: "/Core_Java.pdf"
+>>>>>>> 0cb0a05 (razorpay commit)
       },
       {
         title: "Advanced Java",

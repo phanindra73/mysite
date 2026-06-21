@@ -7,7 +7,10 @@ import {
   Linkedin, Github, Facebook
 } from 'lucide-react';
 import { ACADEMY_CATEGORIES, AcademyCourse, AcademyCategory } from '../data/academyData';
+<<<<<<< HEAD
 import { generateCProgrammingPDF } from '../utils/generateCProgrammingPDF';
+=======
+>>>>>>> 0cb0a05 (razorpay commit)
 
 interface AcademyPageProps {
   onGetStartedClick: (courseName: string) => void;
@@ -124,12 +127,24 @@ export default function AcademyPage({ onGetStartedClick, onNavigate }: AcademyPa
     }).format(val);
   };
 
+<<<<<<< HEAD
   // Download Syllabus file (Real branded PDF for C Programming, interactive text representation for other courses)
+=======
+  const getPdfForCourse = (title: string) => {
+    if (title === "C Programming") return "/C_Programming.pdf";
+    if (title === "C++ Programming") return "/CPP_Programming.pdf";
+    if (title === "Core Java") return "/Core_Java.pdf";
+    return null;
+  };
+
+  // Mock-download Syllabus file for excellent user interactivity
+>>>>>>> 0cb0a05 (razorpay commit)
   const handleDownloadSyllabus = (course: AcademyCourse, categoryName: string) => {
     setDownloadingCourse(course.title);
     
     // Simulate generation delay
     setTimeout(() => {
+<<<<<<< HEAD
       if (course.title === 'C Programming') {
         try {
           generateCProgrammingPDF();
@@ -138,6 +153,9 @@ export default function AcademyPage({ onGetStartedClick, onNavigate }: AcademyPa
         }
       } else {
         const text = `===========================================================
+=======
+      const text = `===========================================================
+>>>>>>> 0cb0a05 (razorpay commit)
                THE SUN TECHNOLOGIES ACADEMY
               OFFICIAL TRAINING COURSE SYLLABUS
 ===========================================================
@@ -180,6 +198,7 @@ Need immediate guidance? Mail us at: phaniovv@gmail.com
 Thank you for trusting Sun Technologies.
 ===========================================================`;
 
+<<<<<<< HEAD
         const element = document.createElement("a");
         const file = new Blob([text], { type: 'text/plain' });
         element.href = URL.createObjectURL(file);
@@ -188,6 +207,15 @@ Thank you for trusting Sun Technologies.
         element.click();
         document.body.removeChild(element);
       }
+=======
+      const element = document.createElement("a");
+      const file = new Blob([text], { type: 'text/plain' });
+      element.href = URL.createObjectURL(file);
+      element.download = `SunAcademy_Syllabus_${course.title.replace(/[^a-zA-Z0-9]/g, '_')}.txt`;
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+>>>>>>> 0cb0a05 (razorpay commit)
 
       setDownloadingCourse(null);
       setDownloadSuccess(course.title);
@@ -499,6 +527,7 @@ Thank you for trusting Sun Technologies.
 
                           {/* Quick interactive buttons */}
                           <div className="grid grid-cols-2 gap-2.5 text-xs select-none">
+<<<<<<< HEAD
                             <button
                               onClick={() => handleDownloadSyllabus(course, cat.name)}
                               disabled={downloadingCourse !== null}
@@ -522,6 +551,43 @@ Thank you for trusting Sun Technologies.
                                 </>
                               )}
                             </button>
+=======
+                            {getPdfForCourse(course.title) ? (
+                              <a
+                                href={getPdfForCourse(course.title)!}
+                                target="_blank"
+                                download
+                                className="py-2 px-3.5 rounded-lg font-bold border flex items-center justify-center gap-1.5 cursor-pointer transition-colors bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300"
+                              >
+                                <Download size={14} />
+                                <span>Syllabus</span>
+                              </a>
+                            ) : (
+                              <button
+                                onClick={() => handleDownloadSyllabus(course, cat.name)}
+                                disabled={downloadingCourse !== null}
+                                className={`py-2 px-3.5 rounded-lg font-bold border flex items-center justify-center gap-1.5 cursor-pointer transition-colors ${
+                                  downloadSuccess === course.title
+                                    ? 'bg-green-50 border-green-200 text-green-700'
+                                    : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
+                                }`}
+                              >
+                                {downloadingCourse === course.title ? (
+                                  <span className="animate-pulse">Loading...</span>
+                                ) : downloadSuccess === course.title ? (
+                                  <>
+                                    <Check size={14} />
+                                    <span>Downloaded</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Download size={14} />
+                                    <span>Syllabus</span>
+                                  </>
+                                )}
+                              </button>
+                            )}
+>>>>>>> 0cb0a05 (razorpay commit)
                             <button
                               onClick={() => onGetStartedClick(course.title)}
                               className="py-2 px-3.5 bg-[#e41e3d] hover:bg-[#c91833] text-white rounded-lg font-bold shadow-sm transition-all active:scale-97 cursor-pointer flex items-center justify-center gap-1"
@@ -574,6 +640,7 @@ Thank you for trusting Sun Technologies.
                               <td className="p-4 text-right whitespace-nowrap font-black font-sans text-sm text-slate-900">{formatSalary(course.feeINR)}</td>
                               <td className="p-3">
                                 <div className="flex gap-2 justify-center select-none">
+<<<<<<< HEAD
                                   <button
                                     onClick={() => handleDownloadSyllabus(course, cat.name)}
                                     className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-600 cursor-pointer"
@@ -581,6 +648,27 @@ Thank you for trusting Sun Technologies.
                                   >
                                     <Download size={14} />
                                   </button>
+=======
+                                  {getPdfForCourse(course.title) ? (
+                                    <a
+                                      href={getPdfForCourse(course.title)!}
+                                      target="_blank"
+                                      download
+                                      className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-600 cursor-pointer flex items-center justify-center"
+                                      title="Download Syllabus Portfolio"
+                                    >
+                                      <Download size={14} />
+                                    </a>
+                                  ) : (
+                                    <button
+                                      onClick={() => handleDownloadSyllabus(course, cat.name)}
+                                      className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-600 cursor-pointer"
+                                      title="Download Syllabus Portfolio"
+                                    >
+                                      <Download size={14} />
+                                    </button>
+                                  )}
+>>>>>>> 0cb0a05 (razorpay commit)
                                   <button
                                     onClick={() => onGetStartedClick(course.title)}
                                     className="px-3.5 py-1.5 bg-[#e41e3d] hover:bg-[#c91833] text-white font-extrabold rounded-lg shadow-sm transition-transform active:scale-95 cursor-pointer flex items-center gap-1"
