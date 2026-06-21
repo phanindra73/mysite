@@ -126,6 +126,21 @@ export default function AcademyPage({ onGetStartedClick, onNavigate }: AcademyPa
 
   // Download Syllabus file (Real branded PDF for C Programming, interactive text representation for other courses)
   const handleDownloadSyllabus = (course: AcademyCourse, categoryName: string) => {
+    if (course.syllabusPdf) {
+      // Direct download of real PDF
+      const element = document.createElement("a");
+      element.href = course.syllabusPdf;
+      element.download = course.syllabusPdf.replace('/', '');
+      element.target = "_blank";
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+      
+      setDownloadSuccess(course.title);
+      setTimeout(() => setDownloadSuccess(null), 3000);
+      return;
+    }
+
     setDownloadingCourse(course.title);
     
     // Simulate generation delay

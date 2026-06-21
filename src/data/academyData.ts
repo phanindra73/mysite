@@ -6,6 +6,7 @@ export interface AcademyCourse {
   rating: number;
   skills: string[];
   level: 'Beginner' | 'Intermediate' | 'Advanced' | 'All Levels';
+  syllabusPdf?: string;
 }
 
 export interface AcademyCategory {
@@ -28,7 +29,8 @@ export const ACADEMY_CATEGORIES: AcademyCategory[] = [
         description: "Master procedural programming paradigm, pointer manipulation, and memory management basics.",
         rating: 4.7,
         skills: ["Pointers", "Data Types", "Functions", "Memory Allocations"],
-        level: "Beginner"
+        level: "Beginner",
+        syllabusPdf: "/C_Programming.pdf"
       },
       {
         title: "C++ Programming",
@@ -37,7 +39,8 @@ export const ACADEMY_CATEGORIES: AcademyCategory[] = [
         description: "Explore Object-Oriented Programming (OOP) concepts, templates, STL containers, and low-level system design.",
         rating: 4.8,
         skills: ["OOPS", "STL Library", "Templates", "Polymorphism"],
-        level: "Beginner"
+        level: "Beginner",
+        syllabusPdf: "/CPP_Programming.pdf"
       },
       {
         title: "Core Java",
@@ -46,7 +49,8 @@ export const ACADEMY_CATEGORIES: AcademyCategory[] = [
         description: "Master Java fundamentals, exception handling, multi-threading, collections, and generic programming.",
         rating: 4.9,
         skills: ["Java JVM", "Collections Framework", "Multi-threading", "File IO"],
-        level: "Beginner"
+        level: "Beginner",
+        syllabusPdf: "/Core_Java.pdf"
       },
       {
         title: "Advanced Java",
