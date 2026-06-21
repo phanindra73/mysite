@@ -156,11 +156,7 @@ export default function GetStartedModal({ isOpen, onClose, initialProgram }: Get
   const activeCoursePrice = resolveActiveCoursePrice(formData.program);
   const basePriceINR = activeCoursePrice.inr;
   const bookingFeeINR = 5000; // Standard nominal block fee
-<<<<<<< HEAD
-  const discountRateValue = paymentOption === 'full' ? 0.10 : 0; // 10% cash discount
-=======
   const discountRateValue = 0; // 0% cash discount
->>>>>>> 0cb0a05 (razorpay commit)
   const discountAmount = Math.round(basePriceINR * discountRateValue);
   const beforeTaxPrice = paymentOption === 'full' ? (basePriceINR - discountAmount) : bookingFeeINR;
   
@@ -179,55 +175,6 @@ export default function GetStartedModal({ isOpen, onClose, initialProgram }: Get
   };
 
   // Secure Checkout execution
-<<<<<<< HEAD
-  const handleCheckoutSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setModalStep('processing');
-    setProcessingProgress(0);
-    
-    const logs = [
-      'Initializing Razorpay Standard Checkout SDK v3...',
-      'Creating secure Razorpay order payload: order_Rzp' + Math.floor(100000 + Math.random() * 90000) + '...',
-      'Opening secure Razorpay modal overlay & authorizing bank gateway connection...',
-      'Verifying Razorpay digital signatures: Rzp_Signature_Verified...',
-      'Success! Enrolling cadet seat info & creating digital admission logs...'
-    ];
-
-    let logIndex = 0;
-    setProcessingLog(logs[0]);
-
-    // Interval to simulate progressive security checks
-    const interval = setInterval(() => {
-      logIndex++;
-      if (logIndex < logs.length) {
-        setProcessingLog(logs[logIndex]);
-        setProcessingProgress((prev) => prev + 25);
-      } else {
-        clearInterval(interval);
-        
-        // Generate Mock receipt details
-        const randReceipt = 'SUN-REC-' + Math.floor(100000 + Math.random() * 90000);
-        const randTxn = 'TXN-' + Math.floor(100000000 + Math.random() * 900000000);
-        const currentDate = new Date().toLocaleDateString('en-IN', {
-          day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
-        });
-
-        setReceiptDetails({
-          receiptId: randReceipt,
-          txnId: randTxn,
-          date: currentDate,
-          originalPrice: basePriceINR,
-          discountRate: discountRateValue * 100,
-          discountValue: discountAmount,
-          gstAmount: gstPart,
-          paidAmount: getFormattedPrice(totalAmount),
-          formattedPriceINR: getFormattedPrice(basePriceINR)
-        });
-
-        setModalStep('receipt');
-      }
-    }, 800);
-=======
   const handleCheckoutSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setModalStep('processing');
@@ -333,7 +280,6 @@ export default function GetStartedModal({ isOpen, onClose, initialProgram }: Get
       alert('Order creation failed. Is the backend server running?');
       setModalStep('payment');
     }
->>>>>>> 0cb0a05 (razorpay commit)
   };
 
   // Download simulation
@@ -681,13 +627,6 @@ Thank you for trusting Sun Technologies.
                               >
                                 <div className="flex items-center justify-between">
                                   <span className="font-extrabold text-slate-800">Complete Course Fee</span>
-<<<<<<< HEAD
-                                  <div className="flex items-center gap-1 text-[10px] bg-green-500 text-white font-extrabold px-1.5 py-0.5 rounded">
-                                    <Percent size={10} />
-                                    <span>10% OFF</span>
-                                  </div>
-=======
->>>>>>> 0cb0a05 (razorpay commit)
                                 </div>
                                 <p className="text-[10px] text-slate-400 mt-0.5 font-medium">Clear full program amount securely.</p>
                               </button>
@@ -717,19 +656,7 @@ Thank you for trusting Sun Technologies.
                               <span className="text-slate-700">{getFormattedPrice(basePriceINR)}</span>
                             </div>
 
-<<<<<<< HEAD
-                            {paymentOption === 'full' ? (
-                              <div className="flex justify-between text-xs font-medium text-green-600">
-                                <span className="flex items-center gap-1">
-                                  <Sparkles size={12} />
-                                  <span>10% Online Promo Code</span>
-                                </span>
-                                <span>-{getFormattedPrice(discountAmount)}</span>
-                              </div>
-                            ) : (
-=======
                             {paymentOption === 'deposit' && (
->>>>>>> 0cb0a05 (razorpay commit)
                               <div className="flex justify-between text-xs font-medium text-amber-600">
                                 <span>Seat Advance Amount</span>
                                 <span>{getFormattedPrice(bookingFeeINR)}</span>
@@ -761,215 +688,12 @@ Thank you for trusting Sun Technologies.
                       </div>
 
                       {/* Right Block: Interactive payment inputs */}
-<<<<<<< HEAD
-                      <div className="md:col-span-7 space-y-4">
-                        <div>
-                          <div className="flex items-center justify-between mb-1.5">
-                            <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest">
-                              Razorpay Checkout Mode
-                            </label>
-                            <span className="text-[10px] text-[#0B69FF] font-black flex items-center gap-1 bg-[#0B69FF]/5 px-2 py-0.5 rounded border border-[#0B69FF]/15">
-                              <span className="w-1.5 h-1.5 rounded-full bg-[#0B69FF] animate-pulse" />
-                              Razorpay Secured
-                            </span>
-                          </div>
-
-                          {/* Mode selecting Tabs */}
-                          <div className="grid grid-cols-3 gap-2">
-                            <button
-                              type="button"
-                              onClick={() => setPaymentMethod('card')}
-                              className={`flex flex-col items-center justify-center p-2 rounded-lg border text-xs gap-1 cursor-pointer transition-all ${
-                                paymentMethod === 'card'
-                                  ? 'border-[#e41e3d] bg-red-50/10 text-[#e41e3d] font-bold'
-                                  : 'border-slate-200 bg-white text-slate-500 hover:bg-slate-50'
-                              }`}
-                            >
-                              <CreditCard size={16} />
-                              <span>Card Pay</span>
-                            </button>
-
-                            <button
-                              type="button"
-                              onClick={() => setPaymentMethod('upi')}
-                              className={`flex flex-col items-center justify-center p-2 rounded-lg border text-xs gap-1 cursor-pointer transition-all ${
-                                paymentMethod === 'upi'
-                                  ? 'border-[#e41e3d] bg-red-50/10 text-[#e41e3d] font-bold'
-                                  : 'border-slate-200 bg-white text-slate-500 hover:bg-slate-50'
-                              }`}
-                            >
-                              <QrCode size={16} />
-                              <span>UPI Scan</span>
-                            </button>
-
-                            <button
-                              type="button"
-                              onClick={() => setPaymentMethod('netbanking')}
-                              className={`flex flex-col items-center justify-center p-2 rounded-lg border text-xs gap-1 cursor-pointer transition-all ${
-                                paymentMethod === 'netbanking'
-                                  ? 'border-[#e41e3d] bg-red-50/10 text-[#e41e3d] font-bold'
-                                  : 'border-slate-200 bg-white text-slate-500 hover:bg-slate-50'
-                              }`}
-                            >
-                              <Landmark size={16} />
-                              <span>Net Banking</span>
-                            </button>
-                          </div>
-                        </div>
-
-                        {/* TAB CONTENT: 1. Credit Card Mode */}
-                        {paymentMethod === 'card' && (
-                          <div className="space-y-3 bg-slate-50/50 p-4 rounded-xl border border-slate-100">
-                            <div>
-                              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                                Secure Card Number
-                              </label>
-                              <div className="relative">
-                                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
-                                  <CreditCard size={15} />
-                                </span>
-                                <input
-                                  type="text"
-                                  required
-                                  maxLength={19}
-                                  value={cardDetails.number}
-                                  onChange={handleCardNumberChange}
-                                  className="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#e41e3d] focus:border-[#e41e3d]"
-                                  placeholder="4111 2222 3333 4444"
-                                />
-                              </div>
-                            </div>
-
-                            <div>
-                              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                                Cardholder Full Name
-                              </label>
-                              <input
-                                type="text"
-                                required
-                                value={cardDetails.name}
-                                onChange={(e) => setCardDetails({ ...cardDetails, name: e.target.value })}
-                                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#e41e3d] focus:border-[#e41e3d]"
-                                placeholder="AS SHOWN ON FACE OF CARD"
-                              />
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-3">
-                              <div>
-                                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                                  Expiration Code
-                                </label>
-                                <input
-                                  type="text"
-                                  required
-                                  maxLength={5}
-                                  value={cardDetails.expiry}
-                                  onChange={handleExpiryChange}
-                                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 text-center focus:outline-none focus:ring-1 focus:ring-[#e41e3d] focus:border-[#e41e3d]"
-                                  placeholder="MM/YY"
-                                />
-                              </div>
-
-                              <div>
-                                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                                  Security CVV
-                                </label>
-                                <input
-                                  type="password"
-                                  required
-                                  maxLength={3}
-                                  pattern="[0-9]{3}"
-                                  value={cardDetails.cvc}
-                                  onChange={(e) => setCardDetails({ ...cardDetails, cvc: e.target.value.replace(/[^0-9]/g, '') })}
-                                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 text-center focus:outline-none focus:ring-1 focus:ring-[#e41e3d] focus:border-[#e41e3d]"
-                                  placeholder="123"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* TAB CONTENT: 2. UPI Mode */}
-                        {paymentMethod === 'upi' && (
-                          <div className="space-y-4 bg-slate-50/50 p-4 rounded-xl border border-slate-100 flex flex-col items-center text-center">
-                            
-                            {/* Generates a nice SVG block for instant Mock scan */}
-                            <div className="p-2 bg-white rounded-lg border border-slate-200 shadow-xs relative">
-                              <svg className="w-28 h-28 text-slate-800" viewBox="0 0 100 100" fill="currentColor">
-                                <rect x="10" y="10" width="20" height="20" rx="1" />
-                                <rect x="70" y="10" width="20" height="20" rx="1" />
-                                <rect x="10" y="70" width="20" height="20" rx="1" />
-                                <rect x="40" y="40" width="20" height="20" rx="1" />
-                                <rect x="15" y="15" width="10" height="10" fill="white" />
-                                <rect x="75" y="15" width="10" height="10" fill="white" />
-                                <rect x="15" y="75" width="10" height="10" fill="white" />
-                                <circle cx="50" cy="50" r="5" />
-                                <rect x="42" y="12" width="6" height="18" />
-                                <rect x="15" y="45" width="12" height="6" />
-                                <rect x="72" y="45" width="14" height="6" />
-                                <rect x="45" y="72" width="6" height="14" />
-                              </svg>
-                              <span className="absolute -top-2 -right-2 px-1.5 py-0.5 bg-red-600 font-extrabold text-[8px] text-white rounded">LIVE SCANNABLE</span>
-                            </div>
-
-                            <p className="text-[11px] text-slate-400 font-medium">Scan QR utilizing BHIM, Google Pay, PhonePe, or PayTM apps</p>
-                            
-                            <div className="w-full text-left">
-                              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                                Or Enter UPI Identifier ID
-                              </label>
-                              <div className="flex gap-2">
-                                <input
-                                  type="text"
-                                  required={paymentMethod === 'upi'}
-                                  value={upiId}
-                                  onChange={(e) => setUpiId(e.target.value)}
-                                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#e41e3d] focus:border-[#e41e3d]"
-                                  placeholder="candidate@ybl"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* TAB CONTENT: 3. Netbanking Mode */}
-                        {paymentMethod === 'netbanking' && (
-                          <div className="space-y-3 bg-slate-50/50 p-4 rounded-xl border border-slate-100">
-                            <div>
-                              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                                Choose Associated Bank Name
-                              </label>
-                              <select
-                                value={selectedBank}
-                                onChange={(e) => setSelectedBank(e.target.value)}
-                                className="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 tracking-wide focus:outline-none"
-                              >
-                                <option value="SBI">State Bank of India (SBI)</option>
-                                <option value="HDFC">HDFC Bank Secure Portal</option>
-                                <option value="ICICI">ICICI Bank Corporate/Retail</option>
-                                <option value="AXIS">Axis Secured Netbanking</option>
-                                <option value="KOTAK">Kotak Mahindra Academic Gateway</option>
-                              </select>
-                            </div>
-                            <p className="text-[11px] text-slate-400 font-medium italic">
-                              You're going to be safely rerouted using <strong>{selectedBank} NetPortal</strong> protocols.
-                            </p>
-                          </div>
-                        )}
-
-                        {/* Security guarantees */}
-                        <div className="flex items-start gap-2 p-2.5 bg-blue-50/30 rounded-lg border border-blue-100">
-                          <Lock size={14} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                          <p className="text-[10px] text-slate-500 leading-normal">
-                            All inputs are protected in transmission. Safe Seat reservation cancellation operates 100% full-refund scheme within 3 days.
-=======
                       <div className="md:col-span-7 space-y-4 flex flex-col justify-center">
                         <div className="bg-slate-50/50 p-6 rounded-xl border border-slate-100 text-center flex flex-col items-center justify-center h-full">
                           <ShieldCheck size={48} className="text-[#0B69FF] mb-4 opacity-80" />
                           <h4 className="text-sm font-bold text-slate-800 mb-2">Ready for Secure Checkout</h4>
                           <p className="text-xs text-slate-500 max-w-[250px] leading-relaxed">
                             Click <strong>Continue to Payment</strong> below. A secure Razorpay window will open where you can select your preferred payment method (UPI, Cards, Netbanking).
->>>>>>> 0cb0a05 (razorpay commit)
                           </p>
                         </div>
                       </div>

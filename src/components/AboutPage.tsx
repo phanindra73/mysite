@@ -227,17 +227,9 @@ export default function AboutPage({ onGetStartedClick, onNavigate }: AboutPagePr
             <div className="lg:col-span-7 space-y-4 text-justify">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-950 tracking-tight text-left">Founder Story</h2>
               <p className="text-sm sm:text-base text-gray-650 leading-relaxed">
-<<<<<<< HEAD
                 The Sun Technologies was founded by Phaneendra Oruganti with a vision to make quality software training accessible to everyone. With over 25 years of experience in Software Training, he has helped thousands of students build successful IT careers. Throughout his career, he recognized that many talented individuals were held back by expensive training programs and outdated teaching methods. This inspired him to create a practical, affordable, and career-focused learning platform. At The Sun Technologies, the emphasis is on hands-on learning, real-world skills, and individual student success. By combining expert instruction with industry-relevant training, the institute prepares students to meet modern workplace demands. Today, the organization continues to empower aspiring professionals with the knowledge, confidence, and skills needed to thrive in the technology industry.
               </p>
               
-=======
-                The Sun Technologies was founded on a simple yet profound realization by our founder, Phaneendra Oruganti: true teaching is not just printing software manuals or loading stale textbook modules. It is about a relentless focus on individual student outcomes.
-              </p>
-              <p className="text-sm sm:text-base text-gray-650 leading-relaxed">
-                With over 25 years of experience in Software Training and enterprise systems, Phaneendra Oruganti recognized early on that aspiring developers from diverse demographic backgrounds had the intellectual capabilities to build globally relevant tools but were held back by high commercial tuition fees and theoretical, stale curricula. By keeping our overhead lean and structuring our classes around deep-dive hands-on labs, Phaneendra pioneered an accessible, premier training paradigm. 
-              </p>
->>>>>>> 0cb0a05 (razorpay commit)
               <div className="bg-slate-100/70 border-l-4 border-[#e41e3d] p-4 rounded-r-lg">
                 <p className="text-xs sm:text-sm text-gray-750 font-medium italic leading-relaxed">
                   "Our ultimate responsibility is to ensure that every student who sits in our lecture halls gains genuine coding independence, enabling self-sustaining professional trajectories anywhere in the world."
